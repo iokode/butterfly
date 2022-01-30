@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>b7d58b49-9a97-4ab2-a5d1-bddb0d53d2dd</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\IOKode.Butterfly.GitHubService\IOKode.Butterfly.GitHubService.csproj" />
+    </ItemGroup>
+
+</Project>

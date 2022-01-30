@@ -1,0 +1,256 @@
+@import "normalize.css";
+@import url("https://fonts.googleapis.com/css2?family=Orbitron&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
+.pagination ul {
+  float: right;
+  list-style-type: none;
+  padding: 0;
+}
+.pagination ul li {
+  display: inline;
+}
+.pagination ul li a {
+  padding: 4px 8px;
+}
+.pagination ul li a:hover {
+  text-decoration: none;
+  padding: 3px 7px;
+  border: 1px solid #bc27e0;
+}
+@media (prefers-color-scheme: dark) {
+  .pagination ul li a:hover {
+    border-color: #ce75e8;
+  }
+}
+
+body {
+  margin: auto;
+  display: grid;
+  grid-column-gap: 80px;
+  grid-row-gap: 30px;
+}
+
+body {
+  max-width: 90%;
+  grid-template-areas: "header" "main" "aside" "footer";
+}
+
+@media (min-width: 768px) {
+  body {
+    max-width: 728px;
+    grid-template-areas: "header" "main" "aside" "footer";
+  }
+}
+@media (min-width: 992px) {
+  body {
+    max-width: 952px;
+    grid-template-areas: "header header header" "aside main main" "footer footer footer";
+  }
+}
+@media (min-width: 1200px) {
+  body {
+    max-width: 1160px;
+    grid-template-areas: "header header header" "aside main main" "footer footer footer";
+  }
+}
+@media (min-width: 1440px) {
+  body {
+    max-width: 1400px;
+    grid-template-areas: "header header header" "aside main main" "footer footer footer";
+  }
+}
+aside {
+  grid-area: aside;
+}
+
+header {
+  grid-area: header;
+}
+
+main {
+  grid-area: main;
+}
+
+footer {
+  grid-area: footer;
+}
+
+header {
+  margin: auto;
+  padding-top: 150px;
+  background-repeat: no-repeat;
+  background-position-x: center;
+}
+
+@media (min-width: 768px) {
+  header {
+    padding-top: 200px;
+  }
+}
+@media (min-width: 992px) {
+  header {
+    padding-top: 250px;
+  }
+}
+@media (prefers-color-scheme: light) {
+  header {
+    background-image: url("../images/light/iokode.svg");
+  }
+}
+@media (prefers-color-scheme: dark) {
+  header {
+    background-image: url("../images/dark/iokode.svg");
+  }
+}
+header .main-links {
+  text-align: center;
+  margin-top: -15px;
+}
+
+header .main-links li {
+  list-style-type: none;
+  display: inline;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 15px;
+}
+
+header .main-links li a:hover, header .main-links li a:focus {
+  text-decoration: none;
+  border: 2px solid;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: -12px;
+  margin-right: -12px;
+}
+
+@media (prefers-color-scheme: light) {
+  header .main-links li a:hover, header .main-links li a:focus {
+    border-color: #bc27e0;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  header .main-links li a:hover, header .main-links li a:focus {
+    border-color: #ce75e8;
+  }
+}
+aside > div {
+  margin-bottom: 60px;
+}
+
+footer {
+  margin-top: 25px;
+  text-align: center;
+}
+
+footer ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+footer ul li {
+  display: inline;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+#hosting a {
+  display: block;
+}
+
+#hosting .vadavo-logo {
+  margin-top: 10px;
+}
+
+#hosting .vadavo-logo img {
+  width: 250px;
+}
+
+body {
+  background-color: #EEEEEE;
+  font-family: "Open Sans", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #1C0540;
+    color: white;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Orbitron", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: #bc27e0;
+}
+a:hover {
+  text-decoration: underline;
+}
+@media (prefers-color-scheme: dark) {
+  a {
+    color: #ce75e8;
+  }
+}
+
+aside .title {
+  font-size: 1.5em;
+  font-family: "Orbitron", sans-serif;
+}
+
+.slogan {
+  font-size: 2em;
+  font-family: "Orbitron", sans-serif;
+}
+
+.post .post-actions ul {
+  list-style-type: none;
+  padding: 0;
+}
+.post .post-actions ul li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.comments .comment {
+  display: grid;
+  grid-template-columns: 1fr 100px;
+  border: 1px solid #bc27e0;
+  margin-bottom: 25px;
+  padding: 15px;
+}
+@media (prefers-color-scheme: dark) {
+  .comments .comment {
+    border-color: #ce75e8;
+  }
+}
+.comments .comment.by-author {
+  border-width: 4px;
+}
+.comments .comment .author {
+  grid-column: 1;
+}
+.comments .comment .author-label {
+  grid-column: 2;
+  border: 2px solid #bc27e0;
+  padding: 2px 8px;
+  text-align: center;
+}
+@media (prefers-color-scheme: dark) {
+  .comments .comment .author-label {
+    border-color: #ce75e8;
+  }
+}
+.comments .comment .content {
+  grid-column: 1;
+}
+.comments .comment .avatar {
+  grid-column: 2;
+  margin-top: 15px;
+}
+.comments .comment .avatar img {
+  width: 100px;
+}
+
+/*# sourceMappingURL=post.css.map */

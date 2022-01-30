@@ -1,0 +1,50 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "El blog de desarrollo de software de Ivan Montilla";
+}
+
+@foreach (var resume in Model.Resumes)
+{
+    <div class="post">
+        <div class="metadata">
+            <h1 class="title">
+                <a href="#">@resume.Title</a>
+            </h1>
+        </div>
+        <div class="date">@resume.CreatedAt.ToLongDateString()</div>
+
+        <div class="content">
+            @Html.Raw(resume.Resume)
+        </div>
+
+        <div class="post-actions">
+            <ul>
+                <li>@resume.Comments comentarios</li>
+                <li>
+                    <a href="#">Leer más</a>
+                </li>
+                <li>
+                    <a href="@resume.Url" target="_blank">Leer en GitHub</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+}
+
+<div class="pagination">
+    <ul>
+        <li>
+            <a href="#">Primera</a>
+        </li>
+        <li>
+            <a href="#">Anterior</a>
+        </li>
+        <li>
+            <a href="#">Siguiente</a>
+        </li>
+        <li>
+            <a href="#">Última</a>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,69 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles/index.css"/>
+    <title>Blog de desarrollo de software - IOKode</title>
+</head>
+<body>
+<header>
+    <div class="slogan">
+        <p>El blog de desarrollo de software de Ivan Montilla.</p>
+    </div>
+
+    <ul class="main-links">
+        <li><a href="/">Inicio</a></li>
+        <li><a href="/archivo">Todas las entradas</a></li>
+        <li><a href="/autor">Sobre el autor</a></li>
+        <li><a href="/twitter">Twitter</a></li>
+        <li><a href="/youtube">YouTube</a></li>
+        <li><a href="/youtube-live">Directos en YouTube</a></li>
+    </ul>
+</header>
+
+<aside>
+    <div id="hosting">
+        <span class="title">¿Necesitas hosting?</span>
+        <a href="https://www.vadavo.com">
+            <picture class="vadavo-logo">
+                <source srcset="images/dark/vadavo.svg" media="(prefers-color-scheme: dark)">
+                <img src="images/light/vadavo.svg" alt="Logotipo de VADAVO">
+            </picture>
+        </a>
+    </div>
+
+    <div id="partners">
+        <span class="title">Suelo leer</span>
+        <p>Estos son algunos de los blogs que suelo leer</p>
+        <ul>
+            <li><a target="_blank" href="https://blog.koalite.com/">Koalite</a></li>
+            <li><a target="_blank" href="https://www.variablenotfound.com/">Variable not found</a></li>
+            <li><a target="_blank" href="https://xurxodev.com/">Xurxodev</a></li>
+        </ul>
+    </div>
+
+    <div id="ads">
+        <span class="title">Algunos anuncios</span>
+    </div>
+</aside>
+
+<main>
+    @RenderBody()
+</main>
+
+<footer>
+    <p>
+        Las entradas de este blog están escritas bajo <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es"
+                                                         target="_blank">licencia CC BY SA</a>.
+    </p>
+    <ul>
+        <li><a href="/legal">Información legal</a></li>
+        <li><a href="/cookies">Política de cookies</a></li>
+        <li><a href="/rss">Feed RSS</a></li>
+    </ul>
+</footer>
+</body>
+</html>
