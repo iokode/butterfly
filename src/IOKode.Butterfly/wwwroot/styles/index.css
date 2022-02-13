@@ -2,7 +2,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Orbitron&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
 .pagination ul {
-  float: right;
   list-style-type: none;
   padding: 0;
 }
@@ -28,35 +27,36 @@ body {
   display: grid;
   grid-column-gap: 80px;
   grid-row-gap: 30px;
+  grid-template-columns: 1fr auto;
 }
 
 body {
   max-width: 90%;
-  grid-template-areas: "header" "main" "aside" "footer";
+  grid-template-areas: "header header" "main main" "aside aside" "footer footer";
 }
 
 @media (min-width: 768px) {
   body {
     max-width: 728px;
-    grid-template-areas: "header" "main" "aside" "footer";
+    grid-template-areas: "header header" "main main" "aside aside" "footer footer";
   }
 }
 @media (min-width: 992px) {
   body {
     max-width: 952px;
-    grid-template-areas: "header header header" "aside main main" "footer footer footer";
+    grid-template-areas: "header header" "main aside" "footer footer";
   }
 }
 @media (min-width: 1200px) {
   body {
     max-width: 1160px;
-    grid-template-areas: "header header header" "aside main main" "footer footer footer";
+    grid-template-areas: "header header" "main aside" "footer footer";
   }
 }
 @media (min-width: 1440px) {
   body {
     max-width: 1400px;
-    grid-template-areas: "header header header" "aside main main" "footer footer footer";
+    grid-template-areas: "header header" "main aside" "footer footer";
   }
 }
 aside {
@@ -197,6 +197,10 @@ a:hover {
 aside .title {
   font-size: 1.5em;
   font-family: "Orbitron", sans-serif;
+}
+aside ul {
+  list-style-type: none;
+  padding: 0;
 }
 
 .slogan {

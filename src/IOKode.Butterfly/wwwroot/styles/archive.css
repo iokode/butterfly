@@ -187,4 +187,20 @@ aside ul {
   font-family: "Orbitron", sans-serif;
 }
 
-/*# sourceMappingURL=page.css.map */
+main .date {
+  font-size: 0.8em;
+  padding-left: 1.5em;
+  display: block;
+  color: #909090;
+}
+@media (prefers-color-scheme: dark) {
+  main .date {
+    color: #B0B0B0;
+  }
+}
+main ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+/*# sourceMappingURL=archive.css.map */
