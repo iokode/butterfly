@@ -1,79 +1,63 @@
-using System.Text;
-using System.Text.Json;
-using GraphQL.Client.Abstractions;
 using IOKode.Butterfly.GitHubService.Models;
+using Octokit.GraphQL;
+using Octokit.GraphQL.Model;
 using YamlDotNet.Serialization;
 
 namespace IOKode.Butterfly.GitHubService;
 
 public class IndexPostService
 {
-    private readonly HttpClient _HttpClient;
-    private readonly IGraphQLClient _GraphQlClient;
+    private readonly Connection _GitHubClient;
 
-    public IndexPostService(HttpClient httpClient, IGraphQLClient graphQlClient)
+    public IndexPostService(Connection gitHubClient)
     {
-        _HttpClient = httpClient;
-        _GraphQlClient = graphQlClient;
+        _GitHubClient = gitHubClient;
     }
 
-    public async Task<IEnumerable<PostResume>> GetResumesAsync(int offset = 0)
+    public async Task<IEnumerable<PostEntry>> GetResumesAsync(int offset = 0, int take = 2)
     {
-        var resumes = (await _GetIndexFileAsync(offset)).ToArray();
-        string query = _BuildQuery(resumes.Select(resume => resume.Id));
-        await _RunQueryAsync(query, resumes);
+        var filesQuery = new Query()
+            .Repository("blog", "iokode")
+            .Object("HEAD:posts").Cast<Tree>()
+            .Entries
+            .Select(x => new
+            {
+                Name = x.Name,
+                Content = x.Object.Cast<Blob>().Text
+            })
+            .Compile();
 
-        return resumes;
-    }
+        var files = await _GitHubClient.Run(filesQuery);
+        files = files.Reverse();
 
-    private async Task<IEnumerable<PostResume>> _GetIndexFileAsync(int offset = 0)
-    {
-        var response = await _HttpClient.GetAsync("https://raw.githubusercontent.com/iokode/blog/main/archive.yml");
-        response.EnsureSuccessStatusCode();
-        string yamlString = await response.Content.ReadAsStringAsync();
-
-        var deserializer = new DeserializerBuilder().Build();
-        var resume = deserializer.Deserialize<PostResume[]>(yamlString);
-        return resume.Reverse().Skip(offset).Take(2);
-    }
-
-    private static string _BuildQuery(IEnumerable<int> ids)
-    {
-        var stringBuilder = new StringBuilder();
-        stringBuilder.Append("query{");
-        stringBuilder.Append("repository(owner:\"iokode\",name:\"blog\"){");
-        foreach (int id in ids)
+        var entries = new List<PostEntry>();
+        foreach (var file in files)
         {
-            stringBuilder.Append($"d{id}:discussion(number:{id}){{");
-            stringBuilder.Append("createdAt,title,bodyHTML,url,comments{totalCount}},");
-        }
-        stringBuilder.Length--;
-        stringBuilder.Append("}}");
-
-        return stringBuilder.ToString();
-    }
-
-    private async Task _RunQueryAsync(string query, PostResume[] resumes)
-    {
-        var response = await _GraphQlClient.SendQueryAsync<JsonDocument>(query);
-        if (response.Errors?.Any() ?? false)
-        {
-            throw new Exception("Something went wrong while querying GitHub API");
+            var deserializer = new DeserializerBuilder().Build();
+            entries.AddRange(deserializer.Deserialize<PostEntry[]>(file.Content));
         }
 
-        var posts = response.Data.RootElement
-            .GetProperty("repository")
-            .EnumerateObject();
-
-        for (int i = 0; i < resumes.Length; i++)
+        entries = entries.Skip(offset).Take(take).ToList();
+        foreach (var entry in entries)
         {
-            var resume = resumes[i];
-            var post = posts.ToArray()[i];
-            resume.CreatedAt = post.Value.GetProperty("createdAt").GetDateTimeOffset().LocalDateTime;
-            resume.Title = post.Value.GetProperty("title").GetString()!;
-            resume.Resume = post.Value.GetProperty("bodyHTML").GetString()!;
-            resume.Comments = post.Value.GetProperty("comments").GetProperty("totalCount").GetInt32();
-            resume.Url = post.Value.GetProperty("url").GetString()!;
+            var query = new Query()
+                .Repository("blog", "iokode")
+                .Discussion(entry.Number)
+                .Select(x => new
+                {
+                    x.Title,
+                    CreatedAt = x.CreatedAt.LocalDateTime,
+                    Comments = x.Comments(null, null, null, null).TotalCount
+                })
+                .Compile();
+
+            var response = await _GitHubClient.Run(query);
+
+            entry.Title = response.Title;
+            entry.CreatedAt = response.CreatedAt;
+            entry.Comments = response.Comments;
         }
+
+        return entries;
     }
 }

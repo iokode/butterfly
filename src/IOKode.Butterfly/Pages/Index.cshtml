@@ -1,7 +1,12 @@
 ﻿@page
-@model IndexModel
+@model IndexPage
 @{
     ViewData["Title"] = "El blog de desarrollo de software de Ivan Montilla";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/styles/index.css">
 }
 
 @foreach (var resume in Model.Resumes)
@@ -9,10 +14,10 @@
     <div class="post">
         <div class="metadata">
             <h1 class="title">
-                <a href="#">@resume.Title</a>
+                <a href="@resume.Url">@resume.Title</a>
             </h1>
+            <div class="date">@resume.CreatedAt.ToLongDateString()</div>
         </div>
-        <div class="date">@resume.CreatedAt.ToLongDateString()</div>
 
         <div class="content">
             @Html.Raw(resume.Resume)
@@ -22,10 +27,10 @@
             <ul>
                 <li>@resume.Comments comentarios</li>
                 <li>
-                    <a href="#">Leer más</a>
+                    <a href="@resume.Url">Leer más</a>
                 </li>
                 <li>
-                    <a href="@resume.Url" target="_blank">Leer en GitHub</a>
+                    <a href="@resume.GitHubUrl" target="_blank">Leer en GitHub</a>
                 </li>
             </ul>
         </div>
@@ -34,17 +39,15 @@
 
 <div class="pagination">
     <ul>
+
         <li>
-            <a href="#">Primera</a>
+            <a href="/?page=@(Model.CurrentPage + 1)">Entradas más antiguas</a>
         </li>
-        <li>
-            <a href="#">Anterior</a>
-        </li>
-        <li>
-            <a href="#">Siguiente</a>
-        </li>
-        <li>
-            <a href="#">Última</a>
-        </li>
+        @if (Model.CurrentPage > 1)
+        {
+            <li>
+                <a href="/?page=@(Model.CurrentPage - 1)">Entradas más recientes</a>
+            </li>
+        }
     </ul>
 </div>

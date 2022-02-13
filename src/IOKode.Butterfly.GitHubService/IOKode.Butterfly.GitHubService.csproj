@@ -3,13 +3,11 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="GraphQL.Client" Version="4.0.*" />
-        <PackageReference Include="GraphQL.Client.Serializer.SystemTextJson" Version="4.0.*" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.2-mauipre.1.22054.8" />
+        <PackageReference Include="Octokit.GraphQL" Version="0.1.8-beta" />
         <PackageReference Include="YamlDotNet" Version="11.2.1" />
     </ItemGroup>
 

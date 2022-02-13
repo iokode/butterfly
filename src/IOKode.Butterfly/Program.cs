@@ -1,47 +1,42 @@
-using System.Net.Http.Headers;
-using GraphQL.Client.Abstractions;
-using GraphQL.Client.Http;
-using GraphQL.Client.Serializer.SystemTextJson;
 using IOKode.Butterfly.GitHubService;
 using IOKode.Butterfly.Options;
 using Microsoft.Extensions.Options;
+using Octokit.GraphQL;
 
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddRazorPages();
-builder.Services.AddHttpClient();
-builder.Services.AddTransient<IndexPostService>();
-builder.Services.AddHttpClient<IndexPostService>();
-builder.Services.Configure<GitHubOptions>(builder.Configuration.GetSection("GitHub"));
-builder.Services.AddTransient<IGraphQLClient>(sp =>
+void ConfigureServices(IServiceCollection services, IConfiguration configuration)
 {
-    var httpClient = sp.GetRequiredService<IHttpClientFactory>().CreateClient();
-    var ghOptions = sp.GetRequiredService<IOptions<GitHubOptions>>();
-    httpClient.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse($"bearer {ghOptions.Value.AuthToken}");
-    var graphQlHttpClient = new GraphQLHttpClient(new GraphQLHttpClientOptions()
+    services.AddRazorPages();
+    services.AddHttpClient();
+    services.AddTransient<PostService>();
+    services.AddHttpClient<PostService>();
+    services.Configure<GitHubOptions>(configuration.GetSection("GitHub"));
+    services.AddTransient(sp =>
     {
-        EndPoint = new Uri("https://api.github.com/graphql"),
-    }, new SystemTextJsonSerializer(), httpClient);
-
-    return graphQlHttpClient;
-});
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error");
-    app.UseHsts();
+        var options = sp.GetRequiredService<IOptions<GitHubOptions>>().Value;
+        return new Connection(new ProductHeaderValue("IOKode.Blog"), options.AuthToken);
+    });
+    services.AddTransient<IndexPostService>();
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+void ConfigureApplication(WebApplication app)
+{
+    if (!app.Environment.IsDevelopment())
+    {
+        app.UseExceptionHandler("/Error");
+        app.UseHsts();
+    }
 
-app.UseRouting();
+    app.UseHttpsRedirection();
+    app.UseStaticFiles();
+    app.UseRouting();
+    app.UseAuthorization();
+    app.MapRazorPages();
+}
 
-app.UseAuthorization();
+var builder = WebApplication.CreateBuilder(args);
+ConfigureServices(builder.Services, builder.Configuration);
 
-app.MapRazorPages();
+var app = builder.Build();
+ConfigureApplication(app);
 
 await app.RunAsync();

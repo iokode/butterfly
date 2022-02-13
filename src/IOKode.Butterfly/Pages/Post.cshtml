@@ -1,0 +1,87 @@
+@page "/post/{year:int}/{slug}"
+@model IOKode.Butterfly.Pages.PostPage
+
+@{
+    Layout = "Shared/_Layout";
+    ViewData["Title"] = Model.Post.Title;
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/styles/post.css">
+}
+
+<div class="post">
+    <div class="metadata">
+        <h1 class="title">@Model.Post.Title</h1>
+        <div class="date">@Model.Post.CreatedAt.ToLongDateString()</div>
+    </div>
+
+    <div class="content">
+        @Html.Raw(Model.Post.BodyHtml)
+    </div>
+
+    <div class="post-actions">
+        <ul>
+            <li>
+                <a target="_blank" href="https://github.com/iokode/blog/discussions/@Model.Post.Number">Leer en GitHub</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="comments">
+    <div class="metadata">
+        <div class="title">
+            Comentarios
+        </div>
+        <p>Hay @Model.Post.Comments.Count() comentarios en esta entrada. Pulsa <a target="_blank" href="https://github.com/iokode/blog/discussions/@Model.Post.Number">aquí para comentar desde GitHub</a>.</p>
+    </div>
+
+    @foreach (var comment in Model.Post.Comments)
+    {
+        <div class="comment @(comment.IsByAuthor ? "by-author" : string.Empty)">
+            <div class="author">
+                Comentario escrito por <a target="_blank" href="https://github.com/@comment.Author.Username">@comment.Author.Username</a> el @comment.CreatedAt.ToLongDateString() a las @comment.CreatedAt.ToShortTimeString()
+            </div>
+            @if (comment.IsByAuthor)
+            {
+                <div class="author-label">
+                    Autor
+                </div>
+            }
+            <div class="content">
+                @Html.Raw(comment.BodyHtml)
+            </div>
+            <div class="avatar">
+                <img src="@comment.Author.AvatarUrl" alt="Avatar de @comment.Author.Username">
+            </div>
+
+            @if (comment.Replies.Any())
+            {
+                <div class="replies">
+                    @foreach (var reply in comment.Replies)
+                    {
+                        <div class="reply @(reply.IsByAuthor ? "by-author" : string.Empty)">
+                            <div class="author">
+                                Respuesta escrita por <a target="_blank" href="https://github.com/@reply.Author.Username">@reply.Author.Username</a> el @reply.CreatedAt.ToLongDateString()
+                            </div>
+                            @if (reply.IsByAuthor)
+                            {
+                                <div class="author-label">
+                                    Autor
+                                </div>
+                            }
+                            <div class="content">
+                                @Html.Raw(reply.BodyHtml)
+                            </div>
+                            <div class="avatar">
+                                <img src="@reply.Author.AvatarUrl" alt="Avatar de @reply.Author.Username">
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
+</div>

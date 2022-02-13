@@ -5,8 +5,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="styles/index.css"/>
-    <title>Blog de desarrollo de software - IOKode</title>
+    @await RenderSectionAsync("Styles")
+    <title>@ViewData["Title"] - IOKode</title>
 </head>
 <body>
 <header>
@@ -29,8 +29,8 @@
         <span class="title">¿Necesitas hosting?</span>
         <a href="https://www.vadavo.com">
             <picture class="vadavo-logo">
-                <source srcset="images/dark/vadavo.svg" media="(prefers-color-scheme: dark)">
-                <img src="images/light/vadavo.svg" alt="Logotipo de VADAVO">
+                <source srcset="~/images/dark/vadavo.svg" media="(prefers-color-scheme: dark)">
+                <img src="~/images/light/vadavo.svg" alt="Logotipo de VADAVO">
             </picture>
         </a>
     </div>
@@ -61,7 +61,6 @@
     </p>
     <ul>
         <li><a href="/legal">Información legal</a></li>
-        <li><a href="/cookies">Política de cookies</a></li>
         <li><a href="/rss">Feed RSS</a></li>
     </ul>
 </footer>
