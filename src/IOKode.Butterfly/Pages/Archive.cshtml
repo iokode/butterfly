@@ -1,0 +1,25 @@
+@page
+@model ArchivePage
+
+@{
+    Layout = "Shared/_Layout";
+    ViewData["Title"] = "Archivo";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/styles/archive.css">
+}
+
+@foreach (var group in Model.Archive)
+{
+    <div id="year-@group.Year">
+        <h1 class="year">@group.Year</h1>
+        <ul>
+            @foreach (var entry in group.Entries)
+            {
+                <li><a href="@entry.Url">@entry.Title</a><span class="date">@entry.Date.ToLongDateString()</span></li>
+            }
+        </ul>
+    </div>
+}

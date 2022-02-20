@@ -5,16 +5,16 @@ using YamlDotNet.Serialization;
 
 namespace IOKode.Butterfly.GitHubService;
 
-public class IndexPostService
+public class ResumeService
 {
     private readonly Connection _GitHubClient;
 
-    public IndexPostService(Connection gitHubClient)
+    public ResumeService(Connection gitHubClient)
     {
         _GitHubClient = gitHubClient;
     }
 
-    public async Task<IEnumerable<PostEntry>> GetResumesAsync(int offset = 0, int take = 2)
+    public async Task<IEnumerable<PostResume>> GetResumesAsync(int offset = 0, int take = 2)
     {
         var filesQuery = new Query()
             .Repository("blog", "iokode")
@@ -30,11 +30,11 @@ public class IndexPostService
         var files = await _GitHubClient.Run(filesQuery);
         files = files.Reverse();
 
-        var entries = new List<PostEntry>();
+        var entries = new List<PostResume>();
         foreach (var file in files)
         {
             var deserializer = new DeserializerBuilder().Build();
-            entries.AddRange(deserializer.Deserialize<PostEntry[]>(file.Content));
+            entries.AddRange(deserializer.Deserialize<PostResume[]>(file.Content));
         }
 
         entries = entries.Skip(offset).Take(take).ToList();

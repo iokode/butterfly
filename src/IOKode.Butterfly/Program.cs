@@ -15,7 +15,8 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
         var options = sp.GetRequiredService<IOptions<GitHubOptions>>().Value;
         return new Connection(new ProductHeaderValue("IOKode.Blog"), options.AuthToken);
     });
-    services.AddTransient<IndexPostService>();
+    services.AddTransient<ResumeService>();
+    services.AddTransient<ArchiveService>();
 }
 
 void ConfigureApplication(WebApplication app)

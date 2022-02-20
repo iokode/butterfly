@@ -7,21 +7,21 @@ namespace IOKode.Butterfly.Pages;
 
 public class IndexPage : PageModel
 {
-    private readonly IndexPostService _IndexPostService;
+    private readonly ResumeService _ResumeService;
 
-    public IEnumerable<PostEntry> Resumes { get; private set; }
+    public IEnumerable<PostResume> Resumes { get; private set; }
 
     [FromQuery(Name = "page")]
     public int CurrentPage { get; set; } = 1;
 
-    public IndexPage(IndexPostService indexPostService)
+    public IndexPage(ResumeService resumeService)
     {
-        _IndexPostService = indexPostService;
+        _ResumeService = resumeService;
     }
 
     public async Task OnGetAsync()
     {
         int offset = (CurrentPage - 1) * 2;
-        Resumes = await _IndexPostService.GetResumesAsync(offset);
+        Resumes = await _ResumeService.GetResumesAsync(offset);
     }
 }

@@ -21,7 +21,7 @@ public class PostService
         response.EnsureSuccessStatusCode();
         string ymlContent = await response.Content.ReadAsStringAsync();
         var deserializer = new DeserializerBuilder().Build();
-        var entries = deserializer.Deserialize<PostEntry[]>(ymlContent);
+        var entries = deserializer.Deserialize<PostResume[]>(ymlContent);
         var entry = entries.SingleOrDefault(x => x.Slug == slug);
 
         if (entry is null)

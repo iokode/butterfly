@@ -1,6 +1,6 @@
 namespace IOKode.Butterfly.GitHubService.Models;
 
-public class PostEntry
+public class PostResume
 {
     public int Number { get; internal set; }
     public string Slug { get; internal set; }
