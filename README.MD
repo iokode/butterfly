@@ -7,7 +7,7 @@ El segundo proyecto, llamado simplemente `IOKode.Butterfly` es una aplicación w
 
 Tanto la plantilla como el servicio están diseñados específicamente para IOKode, con rutas y consultas hardcodeadas a los repositorios de IOKode, por lo que aunque es posible utilizarlo para otro blog, requeriría trabajo de adaptación.
 
-Debido a que la mascota del blog es una mariposa, he decidido nombra este proyecto como `Butterfly`.
+Debido a que la mascota del blog es una mariposa, he decidido nombrar este proyecto como `Butterfly`.
 
 ## English
 Butterfly is the blogging engine used in IOKode blog. Open source.
