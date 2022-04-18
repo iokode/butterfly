@@ -34,6 +34,14 @@ void ConfigureApplication(WebApplication app)
 }
 
 var builder = WebApplication.CreateBuilder(args);
+builder.WebHost.UseKestrel(options =>
+{
+    var socketConfig = builder.Configuration.GetSection("Kestrel").GetSection("UnixSocket");
+    if (socketConfig.Exists())
+    {
+        options.ListenUnixSocket(socketConfig.Value);
+    }
+});
 ConfigureServices(builder.Services, builder.Configuration);
 
 var app = builder.Build();
