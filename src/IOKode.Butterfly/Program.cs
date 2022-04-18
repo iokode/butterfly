@@ -17,6 +17,7 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     });
     services.AddTransient<ResumeService>();
     services.AddTransient<ArchiveService>();
+    services.AddTransient<LegalService>();
 }
 
 void ConfigureApplication(WebApplication app)
