@@ -1,0 +1,22 @@
+@page "/legal"
+@model IOKode.Butterfly.Pages.Legal
+
+@{
+    Layout = "Shared/_Layout";
+    ViewData["Title"] = "Información legal";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/styles/page.css">
+}
+
+<div class="post">
+    <div class="metadata">
+        <h1 class="title">Información legal</h1>
+    </div>
+
+    <div class="content">
+        @Html.Raw(Model.LegalInformation)
+    </div>
+</div>
