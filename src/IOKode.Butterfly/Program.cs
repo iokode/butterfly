@@ -1,10 +1,15 @@
 using IOKode.Butterfly.GitHubService;
 using IOKode.Butterfly.Options;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Options;
 using Octokit.GraphQL;
 
 void ConfigureServices(IServiceCollection services, IConfiguration configuration)
 {
+    services.Configure<ForwardedHeadersOptions>(options =>
+    {
+        options.ForwardedHeaders = ForwardedHeaders.All;
+    });
     services.AddRazorPages();
     services.AddHttpClient();
     services.AddTransient<PostService>();
@@ -25,6 +30,7 @@ void ConfigureApplication(WebApplication app)
     if (!app.Environment.IsDevelopment())
     {
         app.UseExceptionHandler("/Error");
+        app.UseForwardedHeaders();
     }
 
     app.UseStaticFiles();
