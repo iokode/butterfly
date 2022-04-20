@@ -1,8 +1,13 @@
+using System.Globalization;
 using IOKode.Butterfly.GitHubService;
 using IOKode.Butterfly.Options;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Options;
 using Octokit.GraphQL;
+
+var culture = new CultureInfo("es-ES");
+CultureInfo.DefaultThreadCurrentCulture = culture;
+CultureInfo.DefaultThreadCurrentUICulture = culture;
 
 void ConfigureServices(IServiceCollection services, IConfiguration configuration)
 {
