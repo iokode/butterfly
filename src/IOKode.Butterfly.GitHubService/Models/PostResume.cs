@@ -1,3 +1,5 @@
+using Markdig;
+
 namespace IOKode.Butterfly.GitHubService.Models;
 
 public class PostResume
@@ -5,6 +7,7 @@ public class PostResume
     public int Number { get; internal set; }
     public string Slug { get; internal set; }
     public string Resume { get; internal set; }
+    public string HtmlResume => Markdown.ToHtml(Resume);
 
     public string Title { get; internal set; }
     public DateTime CreatedAt { get; internal set; }

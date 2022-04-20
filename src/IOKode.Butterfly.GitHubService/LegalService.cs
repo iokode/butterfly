@@ -1,5 +1,4 @@
-using System.Text;
-using Newtonsoft.Json;
+using Markdig;
 
 namespace IOKode.Butterfly.GitHubService;
 
@@ -15,20 +14,7 @@ public class LegalService
     public async Task<string> GetLegalHtmlAsync(CancellationToken cancellationToken)
     {
         string markDownString = await GetLegalMarkdownAsync(cancellationToken);
-        var bodyObject = new
-        {
-            text = markDownString
-        };
-        string body = JsonConvert.SerializeObject(bodyObject);
-
-        using var request = new HttpRequestMessage(HttpMethod.Post, "https://api.github.com/markdown");
-        request.Headers.Add("User-Agent", "iokode/butterfly");
-        request.Content = new StringContent(body);
-
-        using var response = await _HttpClient.SendAsync(request, cancellationToken);
-
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadAsStringAsync(cancellationToken);
+        return Markdown.ToHtml(markDownString);
     }
 
     private async Task<string> GetLegalMarkdownAsync(CancellationToken cancellationToken)
