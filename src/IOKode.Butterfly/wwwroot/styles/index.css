@@ -14,7 +14,7 @@
 .pagination ul li a:hover {
   text-decoration: none;
   padding: 3px 7px;
-  border: 1px solid #bc27e0;
+  border: 1px solid #8100ac;
 }
 @media (prefers-color-scheme: dark) {
   .pagination ul li a:hover {
@@ -126,7 +126,7 @@ header .main-links li a:hover, header .main-links li a:focus {
 
 @media (prefers-color-scheme: light) {
   header .main-links li a:hover, header .main-links li a:focus {
-    border-color: #bc27e0;
+    border-color: #8100ac;
   }
 }
 @media (prefers-color-scheme: dark) {
@@ -167,12 +167,12 @@ footer ul li {
 }
 
 body {
-  background-color: #EEEEEE;
+  background-color: #EEE;
   font-family: "Open Sans", sans-serif;
 }
 @media (prefers-color-scheme: dark) {
   body {
-    background-color: #1C0540;
+    background-color: #222;
     color: white;
   }
 }
@@ -183,7 +183,7 @@ h1, h2, h3, h4, h5, h6 {
 
 a {
   text-decoration: none;
-  color: #bc27e0;
+  color: #8100ac;
 }
 a:hover {
   text-decoration: underline;
