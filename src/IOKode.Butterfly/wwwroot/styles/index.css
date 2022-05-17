@@ -176,34 +176,33 @@ body {
     color: white;
   }
 }
-
-h1, h2, h3, h4, h5, h6 {
+body h1, body h2, body h3, body h4, body h5, body h6 {
   font-family: "Orbitron", sans-serif;
 }
-
-a {
+body a {
   text-decoration: none;
   color: #8100ac;
 }
-a:hover {
+body a:hover {
   text-decoration: underline;
 }
 @media (prefers-color-scheme: dark) {
-  a {
+  body a {
     color: #ce75e8;
   }
 }
-
-aside .title {
+body header ul.main-links {
+  padding: 0;
+}
+body aside .title {
   font-size: 1.5em;
   font-family: "Orbitron", sans-serif;
 }
-aside ul {
+body aside ul {
   list-style-type: none;
   padding: 0;
 }
-
-.slogan {
+body .slogan {
   font-size: 2em;
   font-family: "Orbitron", sans-serif;
 }
