@@ -10,4 +10,8 @@
       <ProjectReference Include="..\IOKode.Butterfly.GitHubService\IOKode.Butterfly.GitHubService.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="System.ServiceModel.Syndication" Version="6.0.0" />
+    </ItemGroup>
+
 </Project>

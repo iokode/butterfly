@@ -1,5 +1,6 @@
 using System.Globalization;
 using IOKode.Butterfly.GitHubService;
+using IOKode.Butterfly.GitHubService.Models;
 using IOKode.Butterfly.Options;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Options;
@@ -15,6 +16,7 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     {
         options.ForwardedHeaders = ForwardedHeaders.All;
     });
+    services.AddControllers();
     services.AddRazorPages();
     services.AddHttpClient();
     services.AddTransient<PostService>();
@@ -28,6 +30,7 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     services.AddTransient<ResumeService>();
     services.AddTransient<ArchiveService>();
     services.AddTransient<LegalService>();
+    services.AddTransient<FeedService>();
 }
 
 void ConfigureApplication(WebApplication app)
@@ -41,7 +44,12 @@ void ConfigureApplication(WebApplication app)
     app.UseStaticFiles();
     app.UseRouting();
     app.UseAuthorization();
-    app.MapRazorPages();
+
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapRazorPages();
+        endpoints.MapControllers();
+    });
 }
 
 var builder = WebApplication.CreateBuilder(args);
