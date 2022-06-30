@@ -75,6 +75,25 @@ footer {
   grid-area: footer;
 }
 
+header .main-links li a:hover, header .social-links li a:hover, header .main-links li a:focus, header .social-links li a:focus {
+  text-decoration: none;
+  border: 2px solid;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: -12px;
+  margin-right: -12px;
+}
+
+@media (prefers-color-scheme: light) {
+  header .main-links li a:hover, header .social-links li a:hover, header .main-links li a:focus, header .social-links li a:focus {
+    border-color: #8100ac;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  header .main-links li a:hover, header .social-links li a:hover, header .main-links li a:focus, header .social-links li a:focus {
+    border-color: #ce75e8;
+  }
+}
 header {
   margin: auto;
   padding-top: 150px;
@@ -102,6 +121,31 @@ header {
     background-image: url("../images/dark/iokode.svg");
   }
 }
+header .social-links {
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  width: 100vw;
+}
+
+@media (max-width: 595px) {
+  header .social-links {
+    text-align: center;
+    position: inherit;
+    top: inherit;
+    right: inherit;
+  }
+}
+header .social-links li {
+  list-style-type: none;
+  display: inline;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 15px;
+}
+
 header .main-links {
   text-align: center;
   margin-top: -15px;
@@ -115,25 +159,6 @@ header .main-links li {
   margin-top: 15px;
 }
 
-header .main-links li a:hover, header .main-links li a:focus {
-  text-decoration: none;
-  border: 2px solid;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-left: -12px;
-  margin-right: -12px;
-}
-
-@media (prefers-color-scheme: light) {
-  header .main-links li a:hover, header .main-links li a:focus {
-    border-color: #8100ac;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  header .main-links li a:hover, header .main-links li a:focus {
-    border-color: #ce75e8;
-  }
-}
 aside > div {
   margin-bottom: 60px;
 }
