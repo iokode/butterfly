@@ -12,7 +12,7 @@
 
 @foreach (var resume in Model.Resumes)
 {
-    <div class="post">
+    <article>
         <div class="metadata">
             <h1 class="title">
                 <a href="@resume.Url">@resume.Title</a>
@@ -35,7 +35,7 @@
                 </li>
             </ul>
         </div>
-    </div>
+    </article>
 }
 
 <div class="pagination">

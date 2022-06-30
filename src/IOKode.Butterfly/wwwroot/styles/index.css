@@ -232,25 +232,25 @@ body .slogan {
   font-family: "Orbitron", sans-serif;
 }
 
-.post {
+article {
   margin-bottom: 60px;
 }
-.post .date {
+article .date {
   margin-top: 5px;
 }
-.post .title a {
+article .title a {
   color: #000;
 }
 @media (prefers-color-scheme: dark) {
-  .post .title a {
+  article .title a {
     color: #FFF;
   }
 }
-.post .post-actions ul {
+article .post-actions ul {
   list-style-type: none;
   padding: 0;
 }
-.post .post-actions ul li {
+article .post-actions ul li {
   display: inline-block;
   margin: 0 10px;
 }

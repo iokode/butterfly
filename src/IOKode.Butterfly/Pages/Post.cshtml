@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="~/styles/post.css" asp-append-version="true">
 }
 
-<div class="post">
+<article>
     <div class="metadata">
         <h1 class="title">@Model.Post.Title</h1>
         <div class="date">@Model.Post.CreatedAt.ToLongDateString()</div>
@@ -28,7 +28,7 @@
             </li>
         </ul>
     </div>
-</div>
+</article>
 
 <div class="comments">
     <div class="metadata">
