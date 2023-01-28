@@ -1,8 +1,12 @@
 using System.Globalization;
 using IOKode.Butterfly.GitHubService;
-using IOKode.Butterfly.GitHubService.Models;
 using IOKode.Butterfly.Options;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Octokit.GraphQL;
 
@@ -12,10 +16,7 @@ CultureInfo.DefaultThreadCurrentUICulture = culture;
 
 void ConfigureServices(IServiceCollection services, IConfiguration configuration)
 {
-    services.Configure<ForwardedHeadersOptions>(options =>
-    {
-        options.ForwardedHeaders = ForwardedHeaders.All;
-    });
+    services.Configure<ForwardedHeadersOptions>(options => { options.ForwardedHeaders = ForwardedHeaders.All; });
     services.AddControllers();
     services.AddRazorPages();
     services.AddHttpClient();
@@ -45,11 +46,8 @@ void ConfigureApplication(WebApplication app)
     app.UseRouting();
     app.UseAuthorization();
 
-    app.UseEndpoints(endpoints =>
-    {
-        endpoints.MapRazorPages();
-        endpoints.MapControllers();
-    });
+    app.MapRazorPages();
+    app.MapControllers();
 }
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/aspnet:6.0-bullseye-slim-amd64
+FROM mcr.microsoft.com/dotnet/aspnet:7.0-bullseye-slim-amd64
 WORKDIR /app/
 ENV ASPNETCORE_ENVIRONMENT="Production"
 COPY ../out/ .
