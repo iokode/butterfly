@@ -12,6 +12,6 @@ public class Legal : PageModel
     
     public async Task OnGetAsync([FromServices] LegalService legalService, CancellationToken cancellationToken)
     {
-        LegalInformation = await legalService.GetLegalHtmlAsync(cancellationToken);
+        LegalInformation = await legalService.GetLegalTextInHtmlAsync(cancellationToken);
     }
 }

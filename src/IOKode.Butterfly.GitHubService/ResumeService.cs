@@ -7,11 +7,11 @@ namespace IOKode.Butterfly.GitHubService;
 
 public class ResumeService
 {
-    private readonly Connection _GitHubClient;
+    private readonly Connection gitHubClient;
 
     public ResumeService(Connection gitHubClient)
     {
-        _GitHubClient = gitHubClient;
+        this.gitHubClient = gitHubClient;
     }
 
     public async Task<IEnumerable<PostResume>> GetResumesAsync(int offset = 0, int take = 2)
@@ -27,7 +27,7 @@ public class ResumeService
             })
             .Compile();
 
-        var files = await _GitHubClient.Run(filesQuery);
+        var files = await gitHubClient.Run(filesQuery);
         files = files.Reverse();
 
         var entries = new List<PostResume>();
@@ -51,7 +51,7 @@ public class ResumeService
                 })
                 .Compile();
 
-            var response = await _GitHubClient.Run(query);
+            var response = await gitHubClient.Run(query);
 
             entry.Title = response.Title;
             entry.CreatedAt = response.CreatedAt;

@@ -1,0 +1,105 @@
+@page "/post/{Year:int}/{Slug}"
+@using IOKode.Butterfly.GitHubService
+@using Microsoft.AspNetCore.Components.Web
+
+@if (post != null)
+{
+    <HeadContent>
+        <title>@post.Title — IOKode</title>
+        <link rel="stylesheet" href="~/styles/post.css" asp-append-version="true">
+    </HeadContent>
+
+    <article>
+        <div class="metadata">
+            <h1 class="title">@post.Title</h1>
+            <div class="date">@post.CreatedAt.ToLongDateString()</div>
+        </div>
+
+        <div class="content">
+            @((MarkupString)post.BodyHtml)
+        </div>
+
+        <div class="post-actions">
+            <ul>
+                <li>
+                    <a target="_blank" href="https://github.com/iokode/blog/discussions/@post.Number">Leer en GitHub</a>
+                </li>
+            </ul>
+        </div>
+    </article>
+
+    <div class="comments">
+        <div class="metadata">
+            <div class="title">
+                Comentarios
+            </div>
+            <p>Hay @post.Comments.Count() comentarios en esta entrada. Pulsa <a target="_blank" href="https://github.com/iokode/blog/discussions/@post.Number">aquí para comentar desde GitHub</a>.</p>
+        </div>
+
+        @foreach (var comment in post.Comments)
+        {
+            <div class="comment @(comment.IsByAuthor ? "by-author" : string.Empty)">
+                <div class="author">
+                    Comentario escrito por <a target="_blank" href="https://github.com/@comment.Author.Username">@comment.Author.Username</a> el @comment.CreatedAt.ToLongDateString() a las @comment.CreatedAt.ToShortTimeString()
+                </div>
+                @if (comment.IsByAuthor)
+                {
+                    <div class="author-label">
+                        Autor
+                    </div>
+                }
+                <div class="content">
+                    @((MarkupString)comment.BodyHtml)
+                </div>
+                <div class="avatar">
+                    <img src="@comment.Author.AvatarUrl" alt="Avatar de @comment.Author.Username">
+                </div>
+
+                @if (comment.Replies.Any())
+                {
+                    <div class="replies">
+                        @foreach (var reply in comment.Replies)
+                        {
+                            <div class="reply @(reply.IsByAuthor ? "by-author" : string.Empty)">
+                                <div class="author">
+                                    Respuesta escrita por <a target="_blank" href="https://github.com/@reply.Author.Username">@reply.Author.Username</a> el @reply.CreatedAt.ToLongDateString()
+                                </div>
+                                @if (reply.IsByAuthor)
+                                {
+                                    <div class="author-label">
+                                        Autor
+                                    </div>
+                                }
+                                <div class="content">
+                                    @((MarkupString)reply.BodyHtml)
+                                </div>
+                                <div class="avatar">
+                                    <img src="@reply.Author.AvatarUrl" alt="Avatar de @reply.Author.Username">
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        }
+    </div>
+}
+
+@code
+{
+    [Inject]
+    private PostService postService { get; set; }
+
+    private GitHubService.Models.Post post;
+
+    [Parameter]
+    public string Slug { get; set; }
+
+    [Parameter]
+    public int Year { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        this.post = await postService.GetBySlugAsync(Year, Slug);
+    }
+}

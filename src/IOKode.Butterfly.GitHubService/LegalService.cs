@@ -4,22 +4,27 @@ namespace IOKode.Butterfly.GitHubService;
 
 public class LegalService
 {
-    private readonly HttpClient _HttpClient;
+    private readonly HttpClient httpClient;
 
     public LegalService(HttpClient httpClient)
     {
-        _HttpClient = httpClient;
+        this.httpClient = httpClient;
     }
 
-    public async Task<string> GetLegalHtmlAsync(CancellationToken cancellationToken)
+    public async Task<string> GetLegalTextInHtmlAsync(CancellationToken cancellationToken)
     {
-        string markDownString = await GetLegalMarkdownAsync(cancellationToken);
-        return Markdown.ToHtml(markDownString);
+        string legalTextInMarkdown = await GetLegalTextInMarkdownAsync(cancellationToken);
+        string legalTextInHtml = Markdown.ToHtml(legalTextInMarkdown);
+
+        return legalTextInHtml;
     }
 
-    private async Task<string> GetLegalMarkdownAsync(CancellationToken cancellationToken)
+    private async Task<string> GetLegalTextInMarkdownAsync(CancellationToken cancellationToken)
     {
-        return await _HttpClient.GetStringAsync("https://raw.githubusercontent.com/iokode/blog/main/legal.md",
-            cancellationToken);
+        string legalMarkdown =
+            await this.httpClient.GetStringAsync("https://raw.githubusercontent.com/iokode/blog/main/legal.md",
+                cancellationToken);
+
+        return legalMarkdown;
     }
 }

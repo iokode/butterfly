@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using IOKode.Butterfly.GitHubService.Models;
 using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
@@ -8,11 +7,11 @@ namespace IOKode.Butterfly.GitHubService;
 
 public class ArchiveService
 {
-    private readonly Connection _GitHubClient;
+    private readonly Connection gitHubClient;
 
     public ArchiveService(Connection gitHubClient)
     {
-        _GitHubClient = gitHubClient;
+        this.gitHubClient = gitHubClient;
     }
 
     public async Task<IEnumerable<ArchiveGroup>> GetGroupsAsync(CancellationToken cancellationToken)
@@ -40,8 +39,8 @@ public class ArchiveService
             })
             .Compile();
 
-        var discussionsTask = _GitHubClient.Run(discussionQuery, cancellationToken: cancellationToken);
-        var filesTask = _GitHubClient.Run(query, cancellationToken: cancellationToken);
+        var discussionsTask = this.gitHubClient.Run(discussionQuery, cancellationToken: cancellationToken);
+        var filesTask = this.gitHubClient.Run(query, cancellationToken: cancellationToken);
 
         var groups = new List<ArchiveGroup>();
         foreach (var file in await filesTask)

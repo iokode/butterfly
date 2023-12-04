@@ -1,17 +1,16 @@
 using IOKode.Butterfly.GitHubService.Models;
 using Octokit.GraphQL;
-using Octokit.GraphQL.Core;
 using Octokit.GraphQL.Model;
 
 namespace IOKode.Butterfly.GitHubService;
 
 public class FeedService
 {
-    private readonly Connection _GitHubClient;
+    private readonly Connection gitHubClient;
 
     public FeedService(Connection gitHubClient)
     {
-        _GitHubClient = gitHubClient;
+        this.gitHubClient = gitHubClient;
     }
 
     public async Task<IEnumerable<FeedModel>> GetFeedModels()
@@ -34,7 +33,7 @@ public class FeedService
                 PostUrl = new Uri($"https://github.com/iokode/blog/discussions/{discussion.Number}")
             }).Compile();
 
-        var result = _GitHubClient.Run(query);
+        var result = this.gitHubClient.Run(query);
         return await result;
     }
 }

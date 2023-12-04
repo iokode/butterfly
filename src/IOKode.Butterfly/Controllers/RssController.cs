@@ -30,7 +30,7 @@ public class RssController : Controller
             post.HtmlContent,
             post.PostUrl)
         {
-            Authors = { new SyndicationPerson("ivan@iokode.blog", "Ivan Montilla", "https://montyclt.net") },
+            Authors = { new SyndicationPerson("ivan@iokode.net", "Ivan Montilla", "https://iokode.blog") },
             PublishDate = post.CreatedAt
         });
 

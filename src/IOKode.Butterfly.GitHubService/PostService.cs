@@ -6,18 +6,18 @@ namespace IOKode.Butterfly.GitHubService;
 
 public class PostService
 {
-    private readonly Connection _GitHubClient;
-    private readonly HttpClient _HttpClient;
+    private readonly Connection gitHubClient;
+    private readonly HttpClient httpClient;
 
     public PostService(Connection gitHubClient, HttpClient httpClient)
     {
-        _GitHubClient = gitHubClient;
-        _HttpClient = httpClient;
+        this.gitHubClient = gitHubClient;
+        this.httpClient = httpClient;
     }
 
     public async Task<Post> GetBySlugAsync(int year, string slug)
     {
-        var response = await _HttpClient.GetAsync($"https://raw.githubusercontent.com/iokode/blog/main/posts/{year}.yml");
+        var response = await httpClient.GetAsync($"https://raw.githubusercontent.com/iokode/blog/main/posts/{year}.yml");
         response.EnsureSuccessStatusCode();
         string ymlContent = await response.Content.ReadAsStringAsync();
         var deserializer = new DeserializerBuilder().Build();
@@ -64,6 +64,6 @@ public class PostService
                     }).ToList()
             }).Compile();
 
-        return await _GitHubClient.Run(query);
+        return await gitHubClient.Run(query);
     }
 }

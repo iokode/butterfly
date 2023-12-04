@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <UserSecretsId>b7d58b49-9a97-4ab2-a5d1-bddb0d53d2dd</UserSecretsId>
     </PropertyGroup>
 
@@ -10,7 +10,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="System.ServiceModel.Syndication" Version="7.0.0" />
+      <PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0" />
     </ItemGroup>
 
 </Project>

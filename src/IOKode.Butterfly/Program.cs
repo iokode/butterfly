@@ -1,4 +1,5 @@
 using System.Globalization;
+using IOKode.Butterfly.Components;
 using IOKode.Butterfly.GitHubService;
 using IOKode.Butterfly.Options;
 using Microsoft.AspNetCore.Builder;
@@ -17,8 +18,9 @@ CultureInfo.DefaultThreadCurrentUICulture = culture;
 void ConfigureServices(IServiceCollection services, IConfiguration configuration)
 {
     services.Configure<ForwardedHeadersOptions>(options => { options.ForwardedHeaders = ForwardedHeaders.All; });
+    services.AddRazorComponents().AddInteractiveServerComponents();
+    services.AddAntiforgery();
     services.AddControllers();
-    services.AddRazorPages();
     services.AddHttpClient();
     services.AddTransient<PostService>();
     services.AddHttpClient<PostService>();
@@ -44,10 +46,11 @@ void ConfigureApplication(WebApplication app)
 
     app.UseStaticFiles();
     app.UseRouting();
+    app.UseAntiforgery();
     app.UseAuthorization();
 
-    app.MapRazorPages();
     app.MapControllers();
+    app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 }
 
 var builder = WebApplication.CreateBuilder(args);
