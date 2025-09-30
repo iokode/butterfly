@@ -1,3 +1,9 @@
+# Archived
+
+The Blog Engine was replaced by the new [Butterfly in a Rocket](https://github.com/iokode/butterfly-in-a-rocket). The *legacy* Butterfly is obsoleted. This repository is archived.
+
+Read the reasons in the [Butterfly in a Rocket](https://iokode.blog/posts/rocket) post.
+
 ## Spanish
 Butterfly es el motor de blogging utilizado en el blog IOKode. Código abierto.
 
